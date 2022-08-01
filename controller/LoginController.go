@@ -2,10 +2,9 @@ package controller
 
 import (
 	"Registration-system/common"
-	"Registration-system/model"
+	entiyParm "Registration-system/entiy/parm"
 	"Registration-system/response"
 	"Registration-system/service"
-	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -13,21 +12,24 @@ import (
 
 func Login(ctx *gin.Context){
 	DB:=common.GetDb()
-	loginInfo:=model.LoginInfo{}
+	loginInfo:=entiyParm.LoginInfo{}
 	ctx.BindJSON(&loginInfo)
-	stuNum:=loginInfo.StuNum
 	//数据验证
 	//.....
-	if !service.IsStuNum_login(DB,stuNum){
+	if !service.IsStuNum_login(DB,loginInfo.StuNum){
 		response.Response(ctx, http.StatusUnprocessableEntity, 404, nil, "Not Found")
 		return
+	}else{
+		response.Success(ctx,nil)
 	}
-	token,err:=common.ReleaseToken(loginInfo)
-	if err!=nil{
-		response.Fail(ctx,nil,"系统异常")
-		log.Printf("token generate error : %v", err)
-		return
-	}
+
+	//jwt
+	// token,err:=common.ReleaseToken(loginInfo)
+	// if err!=nil{
+	// 	response.Fail(ctx,nil,"系统异常")
+	// 	log.Printf("token generate error : %v", err)
+	// 	return
+	// }
 	//返回结果
-	response.Success(ctx,gin.H{"token":token},"OK")
+	// response.Success(ctx,gin.H{"token":token})
 }

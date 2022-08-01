@@ -1,17 +1,17 @@
 package service
 
 import (
-	"Registration-system/model"
+	entiyPo "Registration-system/entiy/po"
 
 	"github.com/jinzhu/gorm"
 )
 
 func GetWaiter(db *gorm.DB,department string,stuName string)int{
 	var number int
-	var waitInfo []model.WaitInfo
-	db.Where("department=?",department).Find(&waitInfo)
-	for i:=0;i<len(waitInfo);i++{
-		if stuName==waitInfo[i].StuName{
+	var wait []entiyPo.Wait
+	db.Where("department=?",department).Find(&wait)
+	for i:=0;i<len(wait);i++{
+		if stuName==wait[i].StuName{
 			number=i
 			break
 		}

@@ -2,7 +2,7 @@ package controller
 
 import (
 	"Registration-system/common"
-	"Registration-system/model"
+	entiyParm "Registration-system/entiy/parm"
 	"Registration-system/response"
 	"Registration-system/service"
 
@@ -12,10 +12,8 @@ import (
 func Wait(ctx *gin.Context){
 	DB:=common.GetDb() 
 	//获取参数
-	var waitInfo model.WaitInfo
+	var waitInfo entiyParm.WaitInfo
 	ctx.ShouldBind(&waitInfo)
-	department:=waitInfo.Department
-	stuName:=waitInfo.StuName
-	number:=service.GetWaiter(DB,department,stuName)
-	response.Success(ctx,gin.H{"wiaterNumber":number},"OK")
+	number:=service.GetWaiter(DB,waitInfo.Department,waitInfo.StuName)
+	response.Success(ctx,gin.H{"wiaterNumber":number})
 }

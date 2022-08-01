@@ -1,13 +1,13 @@
 package service
 
 import (
-	"Registration-system/model"
+	entiyPo "Registration-system/entiy/po"
 
 	"github.com/jinzhu/gorm"
 )
 
-func IsOrder(db *gorm.DB,stuNum int)model.ApplyInfo{
-	var applyInfo model.ApplyInfo
-	db.Where("stu_num=?",stuNum).First(&applyInfo)
-	return applyInfo
+func IsOrder(db *gorm.DB,stuNum int)entiyPo.Apply{
+	var apply entiyPo.Apply
+	db.Where("stu_num=?",stuNum).First(&apply)
+	return apply
 }

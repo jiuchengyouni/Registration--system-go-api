@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"Registration-system/common"
-	"Registration-system/model"
+	entiy "Registration-system/entiy/parm"
 	"net/http"
 	"strings"
 
@@ -35,7 +35,7 @@ func AuthMiddleware() gin.HandlerFunc{
 		//验证通过后获取claims中的userId
 		userId:=claims.UserId
 		DB:=common.GetDb()
-		var user model.LoginInfo
+		var user entiy.LoginInfo
 		DB.First(&user,userId)
 		//用户是否存在
 		if user.StuNum==0{

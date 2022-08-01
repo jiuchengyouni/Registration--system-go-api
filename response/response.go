@@ -13,10 +13,13 @@ func Response(ctx *gin.Context, httpStatus int, code int, data gin.H, msg string
 	})
 }
 
-func Success(ctx *gin.Context, data gin.H, msg string)  {
-	Response(ctx, http.StatusOK, 200, data, msg)
+func Success(ctx *gin.Context, data gin.H)  {
+	Response(ctx, http.StatusOK, 200, data, "Ok")
 }
 
+func NotFound(ctx *gin.Context, data gin.H)  {
+	Response(ctx, http.StatusOK, 404, data, "Not Found")
+}
 func Fail(ctx *gin.Context, data gin.H, msg string)  {
 	Response(ctx, http.StatusOK, 400, data, msg)
 }

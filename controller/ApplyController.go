@@ -2,22 +2,22 @@ package controller
 
 import (
 	"Registration-system/common"
-	"Registration-system/model"
+	entiyParm "Registration-system/entiy/parm"
+	entiyPo "Registration-system/entiy/po"
 	"Registration-system/response"
-	"net/http"
 	"Registration-system/service"
+	"net/http"
 	"github.com/gin-gonic/gin"
 )
-
 func Apply(ctx *gin.Context) {
 	DB:=common.GetDb()
 	//获取参数
-	applyInfo:=model.ApplyInfo{}
+	applyInfo:=entiyParm.ApplyInfo{}
 	ctx.ShouldBind(&applyInfo)
-	// department1:=applyInfo.Department1
-	// department2:=applyInfo.Department2
-	// phoneNum:=applyInfo.PhoneNum
-	// stuName:=applyInfo.StuName
+	department1:=applyInfo.Department1
+	department2:=applyInfo.Department2
+	phoneNum:=applyInfo.PhoneNum
+	stuName:=applyInfo.StuName
 	stuNum:=applyInfo.StuNum
 	//数据验证
 	//不知道需要不要写,还是前端处理好了
@@ -37,6 +37,13 @@ func Apply(ctx *gin.Context) {
 	// 	StuName: stuName,
 	// 	StuNum: stuNum,
 	// }
-	DB.Create(&applyInfo)
-	response.Success(ctx,nil,"OK")
+	newApply:=entiyPo.Apply{
+		Department1: department1,
+		Department2: department2,
+		PhoneNum: phoneNum,
+		StuName: stuName,
+		StuNum: stuNum,
+	}
+	DB.Create(&newApply)
+	response.Success(ctx,nil)
 }

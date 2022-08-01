@@ -2,7 +2,8 @@ package controller
 
 import (
 	"Registration-system/common"
-	"Registration-system/model"
+	entiyParm "Registration-system/entiy/parm"
+	entiyPo "Registration-system/entiy/po"
 	"Registration-system/response"
 	"Registration-system/service"
 	"net/http"
@@ -13,24 +14,22 @@ import (
 func Order(ctx *gin.Context){
 	DB:=common.GetDb()
 	//获取参数
-	orderInfo:=model.OrderInfo{}
+	orderInfo:=entiyParm.OrderInfo{}
 	ctx.ShouldBind(&orderInfo)
-	orderDepartment:=orderInfo.OrderDepartment
-	// phoneNum:=orderInfo.PhoneNum
-	stuName:=orderInfo.StuName
-	stuNum:=orderInfo.StuNum
 	//数据验证
 	//.....
-	applyInfo:=service.IsOrder(DB,stuNum)
-	if applyInfo.Department1!=orderDepartment&&applyInfo.Department2!=orderDepartment {
+	applyInfo:=service.IsOrder(DB,orderInfo.StuNum)
+	if applyInfo.Department1!=orderInfo.OrderDepartment&&applyInfo.Department2!=orderInfo.OrderDepartment{
 		response.Response(ctx, http.StatusUnprocessableEntity, 404, nil, "Not Found")
 		return
 	}
 	//创建预约
-	waitInfo:=model.WaitInfo{
-		Department: orderDepartment,
-		StuName: stuName,
+	wait:=entiyPo.Wait{
+		Department: orderInfo.OrderDepartment,
+		StuName: orderInfo.StuName,
+		StuNum: orderInfo.StuNum,
+		PhoneNum: orderInfo.PhoneNum,
 	}
-	DB.Create(&waitInfo)
-	response.Success(ctx,nil,"OK")
+	DB.Create(&wait)
+	response.Success(ctx,nil)
 }

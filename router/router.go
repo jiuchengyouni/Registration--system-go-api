@@ -3,7 +3,6 @@ package router
 import (
 	"Registration-system/controller"
 	"Registration-system/middleware"
-
 	"github.com/gin-gonic/gin"
 )
 

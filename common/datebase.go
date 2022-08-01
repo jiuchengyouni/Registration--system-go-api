@@ -1,7 +1,7 @@
 package common
 
 import (
-	"Registration-system/model"
+	entiyPo "Registration-system/entiy/po"
 	"fmt"
 
 	"github.com/jinzhu/gorm"
@@ -30,7 +30,7 @@ func InitDb() *gorm.DB{
 	if err!=nil{
 		panic("failed to connect database, err:" + err.Error())
 	}
-	db.AutoMigrate(&model.ApplyInfo{},&model.ChangeInfo{},&model.LoginInfo{},&model.OrderInfo{},&model.WaitInfo{})
+	db.AutoMigrate(&entiyPo.Apply{},&entiyPo.Wait{})
 	DB=db
 	return db
 }

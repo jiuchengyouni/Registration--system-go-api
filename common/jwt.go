@@ -1,7 +1,7 @@
 package common
 
 import (
-	"Registration-system/model"
+	entiyParm "Registration-system/entiy/parm"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -15,7 +15,7 @@ type Claims struct {
 }
 
 //发布token
-func ReleaseToken(login model.LoginInfo)(string,error){
+func ReleaseToken(login entiyParm.LoginInfo)(string,error){
 	//设置过期时间
 	expirationTime:=time.Now().Add(7*24*time.Hour)
 	//创建认证
