@@ -6,12 +6,12 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-func GetWaiter(db *gorm.DB,department string,stuName string)int{
+func GetWaiter(db *gorm.DB,department string,stuNum string)int{
 	var number int
 	var wait []entiyPo.Wait
-	db.Where("department=?",department).Find(&wait)
+	db.Where(map[string]interface{}{"department":department, "state":nil}).Find(&wait)
 	for i:=0;i<len(wait);i++{
-		if stuName==wait[i].StuName{
+		if stuNum==wait[i].StuNum{
 			number=i
 			break
 		}

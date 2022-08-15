@@ -3,7 +3,6 @@ package common
 import (
 	entiyPo "Registration-system/entiy/po"
 	"fmt"
-
 	"github.com/jinzhu/gorm"
 	"github.com/spf13/viper"
 )
@@ -30,7 +29,8 @@ func InitDb() *gorm.DB{
 	if err!=nil{
 		panic("failed to connect database, err:" + err.Error())
 	}
-	db.AutoMigrate(&entiyPo.Apply{},&entiyPo.Wait{})
+	db.AutoMigrate(&entiyPo.Apply{})
+	db.AutoMigrate(&entiyPo.Wait{})
 	DB=db
 	return db
 }

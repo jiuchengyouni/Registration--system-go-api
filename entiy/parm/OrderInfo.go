@@ -1,8 +1,7 @@
 package entiy
 
 type OrderInfo struct {
-	OrderDepartment string `json:"OrderDepartment"`
-	PhoneNum int `json:"PhoneNum"`
-	StuName string `json:"StuName"`
-	StuNum int `json:"StuNum"`
+	Department1 string `json:"Department1"`
+	Department2 string `json:"Department2"`
+	StuNum string `json:"StuNum"`
 }

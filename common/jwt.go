@@ -2,6 +2,7 @@ package common
 
 import (
 	entiyParm "Registration-system/entiy/parm"
+	"strconv"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -16,11 +17,12 @@ type Claims struct {
 
 //发布token
 func ReleaseToken(login entiyParm.LoginInfo)(string,error){
+	stuNum,_:=strconv.Atoi(login.StuNum)
 	//设置过期时间
 	expirationTime:=time.Now().Add(7*24*time.Hour)
 	//创建认证
 	claims:=&Claims{
-		UserId: uint(login.StuNum),
+		UserId: uint(stuNum),
 		StandardClaims: jwt.StandardClaims{
 			//过期时间
 			ExpiresAt:expirationTime.Unix(),

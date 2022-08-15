@@ -38,7 +38,7 @@ func AuthMiddleware() gin.HandlerFunc{
 		var user entiy.LoginInfo
 		DB.First(&user,userId)
 		//用户是否存在
-		if user.StuNum==0{
+		if user.StuNum==""{
 			ctx.JSON(http.StatusUnauthorized, gin.H{
 				"code": 401,
 				"msg": "权限不足",

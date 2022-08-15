@@ -1,7 +1,7 @@
 package entiy
 
 type LoginInfo struct {
-	PhoneNum int `json:"PhoneNum"`
+	PhoneNum string `json:"PhoneNum"`
 	StuName string `json:"StuName"`
-	StuNum int `json:"StuNum"`
+	StuNum string `json:"StuNum"`
 }

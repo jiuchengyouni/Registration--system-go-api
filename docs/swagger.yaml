@@ -1,0 +1,342 @@
+definitions:
+  entiy.ApplyInfo:
+    properties:
+      Department1:
+        type: string
+      Department2:
+        type: string
+      PhoneNum:
+        type: string
+      StuName:
+        type: string
+      StuNum:
+        type: string
+    type: object
+  entiy.ChangeInfo:
+    properties:
+      Department:
+        type: string
+      StuNum:
+        type: string
+    type: object
+  entiy.LoginInfo:
+    properties:
+      PhoneNum:
+        type: string
+      StuName:
+        type: string
+      StuNum:
+        type: string
+    type: object
+  entiy.OrderInfo:
+    properties:
+      Department1:
+        type: string
+      Department2:
+        type: string
+      StuNum:
+        type: string
+    type: object
+  entiy.WaitInfo:
+    properties:
+      Department:
+        type: string
+      StuNum:
+        type: string
+    type: object
+info:
+  contact: {}
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: 桑梓纳新后端接口(go版本)
+  version: "1.0"
+paths:
+  /admin/advance/{department}:
+    post:
+      consumes:
+      - application/json
+      description: 将用户排序提前一位。
+      parameters:
+      - description: changeInfo
+        in: body
+        name: changeInfo
+        required: true
+        schema:
+          $ref: '#/definitions/entiy.ChangeInfo'
+      - description: department
+        in: path
+        name: department
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{OK}'
+          schema:
+            type: string
+        "404":
+          description: '{Not Found}'
+          schema:
+            type: string
+      summary: 提前
+      tags:
+      - 管理员叫号接口
+  /admin/applyLine:
+    get:
+      consumes:
+      - application/json
+      description: 获取报名信息
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{OK}'
+          schema:
+            type: string
+        "404":
+          description: '{Not Found}'
+          schema:
+            type: string
+      summary: 获取报名信息
+      tags:
+      - 管理员叫号接口
+  /admin/delay/{department}:
+    post:
+      consumes:
+      - application/json
+      description: 将用户排序延后一位。
+      parameters:
+      - description: changeInfo
+        in: body
+        name: changeInfo
+        required: true
+        schema:
+          $ref: '#/definitions/entiy.ChangeInfo'
+      - description: department
+        in: path
+        name: department
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{OK}'
+          schema:
+            type: string
+        "404":
+          description: '{Not Found}'
+          schema:
+            type: string
+      summary: 延后
+      tags:
+      - 管理员叫号接口
+  /admin/delete/{department}:
+    post:
+      consumes:
+      - application/json
+      description: 删除用户排队。
+      parameters:
+      - description: changeInfo
+        in: body
+        name: changeInfo
+        required: true
+        schema:
+          $ref: '#/definitions/entiy.ChangeInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{OK}'
+          schema:
+            type: string
+        "404":
+          description: '{Not Found}'
+          schema:
+            type: string
+      summary: 删除
+      tags:
+      - 管理员叫号接口
+  /admin/line/{department}:
+    get:
+      consumes:
+      - application/json
+      description: 根据部门，获取对应排队列表。
+      parameters:
+      - description: department
+        in: path
+        name: department
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{OK}'
+          schema:
+            type: string
+        "404":
+          description: '{Not Found}'
+          schema:
+            type: string
+      summary: 获取排队列表
+      tags:
+      - 管理员叫号接口
+  /admin/next/{department}:
+    get:
+      consumes:
+      - application/json
+      description: 根据部门，更新状态
+      parameters:
+      - description: department
+        in: path
+        name: department
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{OK}'
+          schema:
+            type: string
+        "404":
+          description: '{Not Found}'
+          schema:
+            type: string
+      summary: 下一位
+      tags:
+      - 管理员叫号接口
+  /admin/order:
+    post:
+      consumes:
+      - application/json
+      description: 根据学号判断用户是否已报名，已报名的才可以预约。。
+      parameters:
+      - description: orderInfo
+        in: body
+        name: apply
+        required: true
+        schema:
+          $ref: '#/definitions/entiy.OrderInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{OK}'
+          schema:
+            type: string
+        "404":
+          description: '{Not Found}'
+          schema:
+            type: string
+      summary: 面试预约
+      tags:
+      - 提交信息接口
+  /admin/reset:
+    post:
+      consumes:
+      - application/json
+      description: 将用户从已结束状态从新插入队列（防止管理端误差）
+      parameters:
+      - description: waitInfo
+        in: body
+        name: waitInfo
+        required: true
+        schema:
+          $ref: '#/definitions/entiy.WaitInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{OK}'
+          schema:
+            type: string
+        "404":
+          description: '{Not Found}'
+          schema:
+            type: string
+      summary: 重置
+      tags:
+      - 管理员叫号接口
+  /student/apply:
+    post:
+      consumes:
+      - application/json
+      description: 填写报名信息，根据学号判断用户是否曾经报名过。
+      parameters:
+      - description: applyInfo
+        in: body
+        name: apply
+        required: true
+        schema:
+          $ref: '#/definitions/entiy.ApplyInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{OK}'
+          schema:
+            type: string
+        "404":
+          description: '{Not Found}'
+          schema:
+            type: string
+      summary: 纳新报名
+      tags:
+      - 提交信息接口
+  /student/login:
+    post:
+      consumes:
+      - application/json
+      description: 确定用户学号。
+      parameters:
+      - description: loginInfo
+        in: body
+        name: apply
+        required: true
+        schema:
+          $ref: '#/definitions/entiy.LoginInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{OK}'
+          schema:
+            type: string
+        "404":
+          description: '{Not Found}'
+          schema:
+            type: string
+      summary: 登录
+      tags:
+      - 提交信息接口
+  /student/wait:
+    post:
+      consumes:
+      - application/json
+      description: 查看前面等待人数。
+      parameters:
+      - description: waitInfo
+        in: body
+        name: apply
+        required: true
+        schema:
+          $ref: '#/definitions/entiy.WaitInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{OK}'
+          schema:
+            type: string
+        "404":
+          description: '{Not Found}'
+          schema:
+            type: string
+      summary: 等待人数
+      tags:
+      - 提交信息接口
+swagger: "2.0"
