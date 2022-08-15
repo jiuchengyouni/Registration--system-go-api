@@ -9,4 +9,5 @@ type Apply struct {
 	PhoneNum string `gorm:"type:varchar(20);not null"`
 	StuName string `gorm:"type:varchar(20);not null"`
 	StuNum string `gorm:"type:varchar(20);not null"`
+	Academy string `gorm:"type:varchar(20);not null"`
 }

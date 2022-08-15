@@ -28,6 +28,7 @@ func Apply(ctx *gin.Context) {
 	phoneNum:=applyInfo.PhoneNum
 	stuName:=applyInfo.StuName
 	stuNum:=applyInfo.StuNum
+	academy:=applyInfo.Academy
 	//数据验证
 	//不知道需要不要写,还是前端处理好了
 	//.......
@@ -52,6 +53,7 @@ func Apply(ctx *gin.Context) {
 		PhoneNum: phoneNum,
 		StuName: stuName,
 		StuNum: stuNum,
+		Academy: academy,
 	}
 	DB.Create(&newApply)
 	response.Success(ctx,nil)

@@ -7,4 +7,5 @@ type ApplyInfo struct {
 	PhoneNum string `json:"PhoneNum"`
 	StuName string `json:"StuName"`
 	StuNum string `json:"StuNum"`
+	Academy string `json:"Acaedmy"`
 }
