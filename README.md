@@ -5,3 +5,6 @@ go build main.go
 然后 ./main 运行
 ## 问题
 都是问题）
+## 接口详情
+运行完后访问http://localhost:8889/swagger/index.html#/ <br/>
+在yml文件中自行切换端口，访问也相应修改
